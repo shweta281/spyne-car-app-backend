@@ -10,7 +10,13 @@ const carRoutes = require("./routes/carRoutes");
 
 const app = express();
 
-app.use(cors({ origin: 'https://spyne-car-app-backend-1.onrender.com' }));
+const corsOptions = {
+  origin: "https://spyne-car-app-front-end-4meu.vercel.app/", 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+};
+
+app.use(cors(corsOptions)); 
 app.use(express.json());
 
 const swaggerOptions = {
