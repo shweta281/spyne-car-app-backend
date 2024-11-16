@@ -20,9 +20,24 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API for managing cars",
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
-  apis: ["./routes/*.js"],
+  apis: ["./routes/*.js"],  // Make sure this points to the correct routes
 };
+
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
