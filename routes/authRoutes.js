@@ -40,7 +40,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /auth/signup:
+ * /users/signup:
  *   post:
  *     summary: Sign up a new user
  *     tags: [Authentication]
@@ -80,7 +80,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /auth/login:
+ * /users/login:
  *   post:
  *     summary: Login a user
  *     tags: [Authentication]
