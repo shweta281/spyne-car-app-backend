@@ -11,7 +11,7 @@ const carRoutes = require("./routes/carRoutes");
 const app = express();
 
 const corsOptions = {
-  origin: "https://spyne-car-app-front-end-4meu.vercel.app/", 
+  origin: "https://spyne-car-app-front-end-4meu.vercel.app", 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   allowedHeaders: ['Content-Type', 'Authorization'], 
 };
