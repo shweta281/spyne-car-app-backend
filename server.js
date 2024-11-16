@@ -10,7 +10,7 @@ const carRoutes = require("./routes/carRoutes");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: 'https://spyne-car-app-backend-1.onrender.com' }));
 app.use(express.json());
 
 const swaggerOptions = {
