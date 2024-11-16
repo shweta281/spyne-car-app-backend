@@ -4,6 +4,232 @@ const authMiddleware = require('../middleware/authMiddleware');
 const upload = require('../middleware/multerConfig');
 
 const router = express.Router();
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Car:
+ *       type: object
+ *       required:
+ *         - title
+ *         - description
+ *         - tags
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated ID of the car
+ *         title:
+ *           type: string
+ *           description: The title of the car
+ *         description:
+ *           type: string
+ *           description: Description of the car
+ *         tags:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: Tags associated with the car
+ *         images:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: List of car image URLs
+ *         userId:
+ *           type: string
+ *           description: The ID of the user who owns the car
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Cars
+ *   description: Car management API
+ */
+
+/**
+ * @swagger
+ * /cars/create:
+ *   post:
+ *     summary: Create a new car
+ *     tags: [Cars]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: Car title
+ *               description:
+ *                 type: string
+ *                 description: Car description
+ *               tags:
+ *                 type: string
+ *                 description: Comma-separated tags
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *     responses:
+ *       201:
+ *         description: Car created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       400:
+ *         description: Error creating car
+ */
+
+/**
+ * @swagger
+ * /cars/list:
+ *   get:
+ *     summary: Get all cars of the logged-in user
+ *     tags: [Cars]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of cars
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Car'
+ *       400:
+ *         description: Error fetching cars
+ */
+
+/**
+ * @swagger
+ * /cars/search:
+ *   get:
+ *     summary: Search cars by keyword
+ *     tags: [Cars]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: keyword
+ *         schema:
+ *           type: string
+ *         description: Keyword to search in title, description, or tags
+ *     responses:
+ *       200:
+ *         description: List of cars matching the keyword
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Car'
+ *       400:
+ *         description: Error searching cars
+ */
+
+/**
+ * @swagger
+ * /cars/detail/{id}:
+ *   get:
+ *     summary: Get details of a specific car
+ *     tags: [Cars]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the car
+ *     responses:
+ *       200:
+ *         description: Car details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       400:
+ *         description: Error fetching car details
+ *       404:
+ *         description: Car not found
+ */
+
+/**
+ * @swagger
+ * /cars/update/{id}:
+ *   put:
+ *     summary: Update a specific car
+ *     tags: [Cars]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the car
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 description: Updated car title
+ *               description:
+ *                 type: string
+ *                 description: Updated car description
+ *               tags:
+ *                 type: string
+ *                 description: Updated comma-separated tags
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *     responses:
+ *       200:
+ *         description: Car updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Car'
+ *       400:
+ *         description: Error updating car
+ */
+
+/**
+ * @swagger
+ * /cars/delete/{id}:
+ *   delete:
+ *     summary: Delete a specific car
+ *     tags: [Cars]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the car
+ *     responses:
+ *       200:
+ *         description: Car deleted successfully
+ *       400:
+ *         description: Error deleting car
+ */
 
 // Create Car
 router.post('/create', authMiddleware, upload.array('images', 10), async (req, res) => {
